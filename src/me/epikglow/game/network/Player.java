@@ -9,7 +9,7 @@ public class Player {
     public boolean openSlot;
 
     public Player() {
-        nick = "Player";
+        nick = "Player";    // Default name will be Player unless nick is changed in config
         id = -1;
         x = 0;
         y = 0;
