@@ -1,0 +1,11 @@
+CLIENT:
+    - Client-side code
+        - OpenGL (rendering)
+        - Config files
+    - Network code
+        - Handle AddPlayerSuccess packet
+        - Handle AddPlayerFail packet
+
+SERVER:
+
+MISC:
