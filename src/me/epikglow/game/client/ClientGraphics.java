@@ -12,6 +12,7 @@ import org.newdawn.slick.opengl.TextureLoader;
 public class ClientGraphics {
     private int width, height;  // Window width and height
     private Texture texture;    // Used for holding textures
+    public ClientMain main;
     
     public ClientGraphics(int width, int height) {
         this.width = width;
@@ -21,6 +22,12 @@ public class ClientGraphics {
         setUpOpenGL();  // Set up OpenGL upon initialization
     }
     
+    // For binding ClientMain class to ClientGraphics
+    public void bind(ClientMain main) {
+        this.main = main;
+    }
+    
+    // Sets up the window display
     private void setUpDisplay() {
         try {
             Display.setDisplayMode(new DisplayMode(width, height));
@@ -28,10 +35,11 @@ public class ClientGraphics {
             Display.create();
         } catch(LWJGLException e) {
             e.printStackTrace();
-            System.exit(0);
+            System.exit(1);
         }
     }
     
+    // Sets up OpenGL
     private void setUpOpenGL() {
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
@@ -42,14 +50,24 @@ public class ClientGraphics {
     
     // Used to load a PNG as a texture based on filename
     public void loadTexture(String texName) throws FileNotFoundException, IOException {
-        texture = TextureLoader.getTexture("PNG", this.getClass().getResourceAsStream(texName + ".png"));
+        texture = TextureLoader.getTexture("PNG", this.getClass().getResourceAsStream(texName + ".PNG"));
     }
     
-    public int getWidth() {
+    // Return ID of the currently loaded texture
+    public int getTexture() {
+        return texture.getTextureID();
+    }
+    
+    // Render a Renderable object
+    public void render(Renderable object, int delta) {
+        object.render(this, delta);
+    }
+    
+    public int getWindowWidth() {
         return width;
     }
     
-    public int getHeight() {
+    public int getWindowHeight() {
         return height;
     }
 }

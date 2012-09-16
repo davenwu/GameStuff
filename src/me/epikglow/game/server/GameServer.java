@@ -75,10 +75,11 @@ public class GameServer {
                         connection.sendTCP(new AddPlayerFail());
                 }
                 // Remove the player that occupies the slot that is specified in the RemovePlayer packet
-                // **************** NEED TO FIX THIS FOR SECURITY****************
+                // **************** NEED TO FIX THIS FOR SECURITY PURPOSES****************
                 else if(object instanceof RemovePlayer) {
                     RemovePlayer receivedPacket = (RemovePlayer) object;
                     
+                    // Resets the object at the appropriate index to esentially become an empty slot on the server
                     players[receivedPacket.id] = new Player();
                 }
             }

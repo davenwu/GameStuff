@@ -12,11 +12,11 @@ import me.epikglow.game.network.GameNetwork.UpdatePlayerPositions;
 import me.epikglow.game.network.Player;
 
 public class ClientNetwork {
-    Client client;
-    Player player;
-    Player[] players = new Player[8];
+    public Client client;
+    public Player[] players = new Player[8];
+    public ClientMain main;
 
-    public ClientNetwork() {
+    public ClientNetwork(final Player player) {
         client = new Client();
         
         client.start();
@@ -55,5 +55,10 @@ public class ClientNetwork {
                 }
             }
         }));
+    }
+    
+    // For binding ClientMain class to ClientGraphics
+    public void bind(ClientMain main) {
+        this.main = main;
     }
 }

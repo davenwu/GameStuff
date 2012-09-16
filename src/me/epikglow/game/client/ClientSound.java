@@ -7,8 +7,9 @@ import org.lwjgl.openal.AL10;
 import org.lwjgl.util.WaveData;
 
 public class ClientSound {
-    int buffer;
-    int source;
+    private int buffer;
+    private int source;
+    public ClientMain main;
     
     public ClientSound() {
         buffer = AL10.alGenBuffers();
@@ -16,6 +17,11 @@ public class ClientSound {
         
         // Set up OpenAL upon initializing ClientSound
         setUpOpenAL();
+    }
+    
+    // For binding ClientMain class to ClientGraphics
+    public void bind(ClientMain main) {
+        this.main = main;
     }
     
     private void setUpOpenAL() {

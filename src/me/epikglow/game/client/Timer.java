@@ -4,10 +4,11 @@ import org.lwjgl.Sys;
 
 public class Timer {
     private long lastFrame;
-    private long delta = 0;
+    private long delta;
     
     public Timer() {
         lastFrame = getTime();
+        delta = 0;
     }
     
     private long getTime() {
