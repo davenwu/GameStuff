@@ -80,7 +80,7 @@ public class GameServer {
                 else if(object instanceof RemovePlayer) {
                     RemovePlayer receivedPacket = (RemovePlayer) object;
                     
-                    // Resets the object at the appropriate index to esentially become an empty slot on the server
+                    // Resets the object at the appropriate index to essentially become an empty slot on the server
                     players[receivedPacket.id] = new Player();
                 }
             }

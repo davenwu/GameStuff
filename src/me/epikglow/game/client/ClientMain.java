@@ -14,7 +14,6 @@ public class ClientMain {
     private final int width = 1024;
     private final int height = 576;
     private final int fps = 60;
-    private int delta;
     private boolean isRunning = true;
     
     public void init() {
