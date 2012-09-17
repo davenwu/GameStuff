@@ -4,7 +4,7 @@ import org.lwjgl.Sys;
 
 public class Timer {
     private long lastFrame;
-    private long delta;
+    private int delta;
     
     public Timer() {
         lastFrame = getTime();
@@ -15,10 +15,11 @@ public class Timer {
         return (Sys.getTime() * 1000L) / Sys.getTimerResolution();
     }
     
-    public long getDelta() {
+    public int getDelta() {
         long currentTime = getTime();
-        delta = currentTime - lastFrame;
+        delta = (int) (currentTime - lastFrame);
         lastFrame = getTime();
+        System.out.println("delta = " + delta);
         return delta;
     }
 }

@@ -71,8 +71,9 @@ public class GameServer {
                         players[receivedPacket.player.id] = receivedPacket.player;
                         connection.sendTCP(new AddPlayerSuccess());
                     }
-                    else
-                        connection.sendTCP(new AddPlayerFail());
+                    else {
+                        int sendTCP = connection.sendTCP(new AddPlayerFail());
+                    }
                 }
                 // Remove the player that occupies the slot that is specified in the RemovePlayer packet
                 // **************** NEED TO FIX THIS FOR SECURITY PURPOSES****************

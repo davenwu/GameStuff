@@ -6,13 +6,10 @@ import me.epikglow.game.network.Player;
 public class ClientPhysics {
     private int numProjectiles;
     private ArrayList objects = new ArrayList();
-    private int width, height;
     public ClientMain main;
     
-    public ClientPhysics(int width, int height) {
+    public ClientPhysics() {
         numProjectiles = 0;
-        this.width = width;
-        this.height = height;
     }
     
     // For binding ClientMain class to ClientPhysics
@@ -29,28 +26,26 @@ public class ClientPhysics {
             if(objectsArray[index] instanceof Player) {
                 Player player = (Player) objectsArray[index];
                 
-                if((player.x < main.width && player.x > 0) && (player.y < main.height && player.y > 0)) {
-                    player.x += delta * player.dx;
-                    player.y += delta * player.dy;
+                //if((player.x < main.getWidth() && player.x > 0) && (player.y < main.getHeight() && player.y > 0)) {
+                    player.update(delta);
                     objects.set(index, player);
                     
                     // Update objectsArray to current/updated objects ArrayList
                     objectsArray = objects.toArray();
                     index++;
-                }
+                /*}
                 else {
                     player = null;
                     remove(index);
                     objects.trimToSize();
                     objectsArray = objects.toArray();
-                }
+                }*/
             }
             else if(objectsArray[index] instanceof Bullet) {
                 Bullet bullet = (Bullet) objectsArray[index];
                 
-                if((bullet.getX() < main.width && bullet.getX() > 0) && (bullet.getY() < main.height && bullet.getY() > 0)) {
-                    bullet.setX(bullet.getX() + (delta * bullet.getVelocity() * Math.cos(bullet.getAngle())) / 1000);
-                    bullet.setY(bullet.getY() + (delta * bullet.getVelocity() * Math.sin(bullet.getAngle())) / 1000);
+                if((bullet.getX() < main.getWidth() && bullet.getX() > 0) && (bullet.getY() < main.getHeight() && bullet.getY() > 0)) {
+                    bullet.update(delta);
                     
                     objects.set(index, bullet);
                     
@@ -80,5 +75,10 @@ public class ClientPhysics {
     public void remove(int index) {
         objects.remove(index);
         numProjectiles--;
+    }
+    
+    public void destroy() {
+        objects = null;
+        main = null;
     }
 }

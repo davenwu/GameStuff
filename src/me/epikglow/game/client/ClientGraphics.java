@@ -10,8 +10,9 @@ import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 
 public class ClientGraphics {
-    private int width, height;  // Window width and height
     private Texture texture;    // Used for holding textures
+    private int width;
+    private int height;
     public ClientMain main;
     
     public ClientGraphics(int width, int height) {
@@ -48,19 +49,14 @@ public class ClientGraphics {
         GL11.glEnable(GL11.GL_TEXTURE_2D);
     }
     
+    // Determines whether the display is requested to be closed ("x'd out")
+    public boolean isCloseRequested() {
+        return Display.isCloseRequested();
+    }
+    
     // Used to load a PNG as a texture based on filename
     public void loadTexture(String texName) throws FileNotFoundException, IOException {
         texture = TextureLoader.getTexture("PNG", this.getClass().getResourceAsStream(texName + ".PNG"));
-    }
-    
-    // Return ID of the currently loaded texture
-    public int getTexture() {
-        return texture.getTextureID();
-    }
-    
-    // Render a Renderable object
-    public void render(Renderable object, int delta) {
-        object.render(this, delta);
     }
     
     public int getWindowWidth() {
@@ -69,5 +65,33 @@ public class ClientGraphics {
     
     public int getWindowHeight() {
         return height;
+    }
+    
+    // Return ID of the currently loaded texture
+    public int getTexture() {
+        return texture.getTextureID();
+    }
+    
+    // Render a Renderable object
+    public void render(Renderable object) {
+        object.render(this);
+    }
+    
+    // Update screen/display
+    public void update() {
+        Display.update();
+        Display.sync(main.getFPS());
+    }
+    
+    public void destroy() {
+        Display.destroy();
+        main = null;
+    }
+
+    // Clears display/screen
+    public void clearDisplay() {
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+        
+        GL11.glPushMatrix();
     }
 }

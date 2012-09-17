@@ -12,11 +12,11 @@ public class ClientSound {
     public ClientMain main;
     
     public ClientSound() {
-        buffer = AL10.alGenBuffers();
-        source = AL10.alGenSources();
-        
         // Set up OpenAL upon initializing ClientSound
         setUpOpenAL();
+        
+        buffer = AL10.alGenBuffers();
+        source = AL10.alGenSources();
     }
     
     // For binding ClientMain class to ClientGraphics
@@ -29,7 +29,7 @@ public class ClientSound {
             AL.create();
         } catch (LWJGLException e) {
             e.printStackTrace();
-            System.exit(0);
+            System.exit(1);
         }
     }
     
@@ -49,5 +49,7 @@ public class ClientSound {
     public void destroy() {
         AL10.alDeleteBuffers(buffer);
         AL10.alDeleteSources(source);
+        AL.destroy();
+        main = null;
     }
 }

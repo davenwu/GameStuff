@@ -9,7 +9,7 @@ import org.lwjgl.opengl.GL11;
 public class Bullet implements Renderable, Updateable {
     private double x;
     private double y;
-    private final int velocity = 1000;
+    private final int speed = 1000;
     private double angle;
     
     public Bullet(int x, int y) {
@@ -29,8 +29,8 @@ public class Bullet implements Renderable, Updateable {
         return angle;
     }
     
-    public int getVelocity() {
-        return velocity;
+    public int getSpeed() {
+        return speed;
     }
     
     public void setX(double x) {
@@ -46,7 +46,7 @@ public class Bullet implements Renderable, Updateable {
     }
 
     @Override
-    public void render(ClientGraphics graphics, int delta) {
+    public void render(ClientGraphics graphics) {
         // Load the "bullet" texture
         try {
             graphics.loadTexture("bullet");
@@ -79,7 +79,7 @@ public class Bullet implements Renderable, Updateable {
     // Update bullet position based on the delta (time elapsed since last frame)
     @Override
     public void update(int delta) {
-        x += delta * (velocity * Math.cos(angle) / 1000);
-        y += delta * (velocity * Math.sin(angle) / 1000);
+        x += (delta * speed * Math.cos(angle)) / 1000;
+        y += (delta * speed * Math.sin(angle)) / 1000;
     }
 }
