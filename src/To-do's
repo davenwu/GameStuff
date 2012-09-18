@@ -2,6 +2,7 @@ CLIENT:
     - Client-side code
         - Config files
         - Connect network code
+        - Menus
     - Network code
         - Handle AddPlayerSuccess packet
         - Handle AddPlayerFail packet
