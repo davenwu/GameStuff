@@ -19,7 +19,6 @@ public class Timer {
         long currentTime = getTime();
         delta = (int) (currentTime - lastFrame);
         lastFrame = getTime();
-        System.out.println("delta = " + delta);
         return delta;
     }
 }
