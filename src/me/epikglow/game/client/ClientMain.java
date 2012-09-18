@@ -9,6 +9,7 @@ public class ClientMain {
     private ClientInput input;
     private ClientPhysics physics;
     private Timer timer;
+    private ClientState state;
     
     // Window dimension variables
     private final int width = 1024;
@@ -50,6 +51,7 @@ public class ClientMain {
     }
     
     public ClientMain() {
+        state = ClientState.INIT;
         init();
         
         mainPlayer.x = width / 2;
@@ -58,15 +60,31 @@ public class ClientMain {
         physics.add(mainPlayer);
         mainPlayer.bind(physics);
         
+        state = ClientState.MENU;
+        
         while(isRunning) {
-            input.pollInput();
-            physics.update(timer.getDelta());
-            graphics.clearDisplay();
-            graphics.render(mainPlayer);
-            graphics.update();
-            
-            if(graphics.isCloseRequested()) {
-                isRunning = false;
+            if(state == ClientState.MENU) {
+                /*
+                 * Insert main menu code here
+                 * ADD:
+                 *  buttons
+                 *  background
+                 *  title
+                 */
+                if(graphics.isCloseRequested()) {
+                    isRunning = false;
+                }
+            }
+            else if(state == ClientState.GAME) {
+                input.pollInput();
+                physics.update(timer.getDelta());
+                graphics.clearDisplay();
+                graphics.render(mainPlayer);
+                graphics.update();
+
+                if(graphics.isCloseRequested()) {
+                    isRunning = false;
+                }
             }
         }
         
