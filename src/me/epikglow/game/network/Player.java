@@ -4,12 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import me.epikglow.game.client.Bullet;
-import me.epikglow.game.client.ClientGraphics;
-import me.epikglow.game.client.ClientPhysics;
-import me.epikglow.game.client.ClientSound;
-import me.epikglow.game.client.Renderable;
-import me.epikglow.game.client.Updateable;
+import me.epikglow.game.client.*;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 

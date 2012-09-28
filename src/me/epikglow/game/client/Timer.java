@@ -11,7 +11,7 @@ public class Timer {
         delta = 0;
     }
     
-    private long getTime() {
+    public long getTime() {
         return (Sys.getTime() * 1000L) / Sys.getTimerResolution();
     }
     

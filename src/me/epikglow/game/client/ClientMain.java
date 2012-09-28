@@ -1,6 +1,8 @@
 package me.epikglow.game.client;
 
+import java.util.ArrayList;
 import me.epikglow.game.network.Player;
+import org.lwjgl.Sys;
 
 public class ClientMain {
     private Player mainPlayer = new Player();   // User's player
@@ -14,7 +16,7 @@ public class ClientMain {
     // Window dimension variables
     private final int width = 1024;
     private final int height = 576;
-    private final int fps = 60;
+    private final int fps = 120;
     private boolean isRunning = true;
     
     public void init() {
@@ -50,6 +52,10 @@ public class ClientMain {
         return mainPlayer;
     }
     
+    public ArrayList getObjects() {
+        return physics.getObjects();
+    }
+    
     public ClientMain() {
         state = ClientState.INIT;
         init();
@@ -59,8 +65,9 @@ public class ClientMain {
         
         physics.add(mainPlayer);
         mainPlayer.bind(physics);
+        mainPlayer.bind(sound);
         
-        state = ClientState.MENU;
+        state = ClientState.GAME;
         
         while(isRunning) {
             if(state == ClientState.MENU) {
@@ -71,6 +78,7 @@ public class ClientMain {
                  *  background
                  *  title
                  */
+                
                 if(graphics.isCloseRequested()) {
                     isRunning = false;
                 }
@@ -80,6 +88,7 @@ public class ClientMain {
                 physics.update(timer.getDelta());
                 graphics.clearDisplay();
                 graphics.render(mainPlayer);
+                graphics.renderAllObjects();
                 graphics.update();
 
                 if(graphics.isCloseRequested()) {

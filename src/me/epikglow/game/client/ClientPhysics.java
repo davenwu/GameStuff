@@ -5,7 +5,7 @@ import me.epikglow.game.network.Player;
 
 public class ClientPhysics {
     private int numProjectiles;
-    private ArrayList objects = new ArrayList();
+    private ArrayList objects = new ArrayList(100);
     public ClientMain main;
     
     public ClientPhysics() {
@@ -17,6 +17,10 @@ public class ClientPhysics {
         this.main = main;
     }
     
+    public ArrayList getObjects() {
+        return objects;
+    }
+    
     // Update Updateable object's position based on delta
     public void update(int delta) {
         int index = 0;
@@ -26,20 +30,12 @@ public class ClientPhysics {
             if(objectsArray[index] instanceof Player) {
                 Player player = (Player) objectsArray[index];
                 
-                //if((player.x < main.getWidth() && player.x > 0) && (player.y < main.getHeight() && player.y > 0)) {
-                    player.update(delta);
-                    objects.set(index, player);
-                    
-                    // Update objectsArray to current/updated objects ArrayList
-                    objectsArray = objects.toArray();
-                    index++;
-                /*}
-                else {
-                    player = null;
-                    remove(index);
-                    objects.trimToSize();
-                    objectsArray = objects.toArray();
-                }*/
+                player.update(delta);
+                objects.set(index, player);
+
+                // Update objectsArray to current/updated objects ArrayList
+                objectsArray = objects.toArray();
+                index++;
             }
             else if(objectsArray[index] instanceof Bullet) {
                 Bullet bullet = (Bullet) objectsArray[index];
@@ -56,7 +52,6 @@ public class ClientPhysics {
                 else {
                     bullet = null;
                     remove(index);
-                    objects.trimToSize();
                     objectsArray = objects.toArray();
                 }
             }

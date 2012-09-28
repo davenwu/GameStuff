@@ -2,6 +2,7 @@ package me.epikglow.game.client;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -11,6 +12,7 @@ import org.newdawn.slick.opengl.TextureLoader;
 
 public class ClientGraphics {
     private Texture texture;    // Used for holding textures
+    private String currentTex = "";
     private int width;
     private int height;
     public ClientMain main;
@@ -56,7 +58,10 @@ public class ClientGraphics {
     
     // Used to load a PNG as a texture based on filename
     public void loadTexture(String texName) throws FileNotFoundException, IOException {
-        texture = TextureLoader.getTexture("PNG", this.getClass().getResourceAsStream(texName + ".PNG"));
+        if(!(currentTex.equals(texName))) {
+            currentTex = texName;
+            texture = TextureLoader.getTexture("PNG", this.getClass().getResourceAsStream(texName + ".PNG"));
+        }
     }
     
     public int getWindowWidth() {
@@ -77,6 +82,22 @@ public class ClientGraphics {
         object.render(this);
     }
     
+    public void renderAllObjects() {
+        ArrayList objects = main.getObjects();
+        Object[] objectsArray = objects.toArray();
+        
+        int x = 0;
+        
+        while(x < objectsArray.length) {
+            if(objectsArray[x] instanceof Renderable) {
+                Renderable object = (Renderable) objectsArray[x];
+                
+                object.render(this);
+            }
+            
+            x++;
+        }
+    }
     // Update screen/display
     public void update() {
         Display.update();
