@@ -3,10 +3,13 @@ CLIENT:
         - Config files
         - Connect network code
         - Menus
+            - Menu buttons
+            - Text file input for menu layouts(?)
     - Network code
         - Handle AddPlayerSuccess packet
         - Handle AddPlayerFail packet
 
 SERVER:
+    - Working version of a game/match on server
 
 MISC:
