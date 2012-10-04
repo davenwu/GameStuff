@@ -2,7 +2,6 @@ package me.epikglow.game.client;
 
 import java.util.ArrayList;
 import me.epikglow.game.network.Player;
-import org.lwjgl.Sys;
 
 public class ClientMain {
     private Player mainPlayer = new Player();   // User's player
@@ -13,13 +12,13 @@ public class ClientMain {
     private Timer timer;
     private ClientState state;
     
-    // Window dimension variables
+    // Window/display variables
     private final int width = 1024;
     private final int height = 576;
-    private final int fps = 120;
+    private final int fps = 60;
     private boolean isRunning = true;
     
-    public void init() {
+    private void init() {
         // Initialize all parts of client
         graphics = new ClientGraphics(width, height);
         sound = new ClientSound();
@@ -58,19 +57,21 @@ public class ClientMain {
     
     public ClientMain() {
         state = ClientState.INIT;
-        init();
-        
-        mainPlayer.x = width / 2;
-        mainPlayer.y = height / 2;
-        
-        physics.add(mainPlayer);
-        mainPlayer.bind(physics);
-        mainPlayer.bind(sound);
-        
-        state = ClientState.GAME;
         
         while(isRunning) {
-            if(state == ClientState.MENU) {
+            if(state == ClientState.INIT) {
+                init();
+        
+                mainPlayer.x = width / 2;
+                mainPlayer.y = height / 2;
+
+                physics.add(mainPlayer);
+                mainPlayer.bind(physics);
+                mainPlayer.bind(sound);
+
+                state = ClientState.GAME;
+            }
+            else if(state == ClientState.MENU) {
                 /*
                  * Insert main menu code here
                  * ADD:
@@ -90,6 +91,7 @@ public class ClientMain {
                 graphics.render(mainPlayer);
                 graphics.renderAllObjects();
                 graphics.update();
+                graphics.popMatrix();
 
                 if(graphics.isCloseRequested()) {
                     isRunning = false;

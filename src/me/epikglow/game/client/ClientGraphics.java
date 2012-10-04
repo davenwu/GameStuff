@@ -60,7 +60,7 @@ public class ClientGraphics {
     public void loadTexture(String texName) throws FileNotFoundException, IOException {
         if(!(currentTex.equals(texName))) {
             currentTex = texName;
-            texture = TextureLoader.getTexture("PNG", this.getClass().getResourceAsStream(texName + ".PNG"));
+            texture = TextureLoader.getTexture("PNG", ClientMain.class.getResourceAsStream(texName + ".png"));
         }
     }
     
@@ -114,5 +114,9 @@ public class ClientGraphics {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
         
         GL11.glPushMatrix();
+    }
+    
+    public void popMatrix() {
+        GL11.glPopMatrix();
     }
 }
